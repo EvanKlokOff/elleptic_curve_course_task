@@ -25,7 +25,12 @@ if _ROOT not in sys.path:
 from app.curves import CurveZp, CurveGF2m
 from app.fields import FieldGF2m
 from app.parser import parse_modulus_line, tokenize_task_line
-from app.utils import parse_int, parse_line_ints, set_output_base
+from app.utils import (
+    configure_console,
+    parse_int,
+    parse_line_ints,
+    set_output_base,
+)
 
 
 # ============================================================
@@ -149,6 +154,10 @@ def _build_argparser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str]) -> int:
+    # На Windows консоль/пайп может не поддерживать '→' и кириллицу:
+    # заменяем непредставимые символы, а не падаем (см. app/utils.py).
+    configure_console()
+
     parser = _build_argparser()
     args = parser.parse_args(argv[1:])
 

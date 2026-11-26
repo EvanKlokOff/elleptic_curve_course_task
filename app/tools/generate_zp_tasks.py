@@ -9,6 +9,7 @@ if _ROOT not in sys.path:
 
 from app.curves import CurveZp
 from app.point import Point
+from app.utils import configure_console
 
 
 # Параметры NIST-кривых над Zp из открытых источников [citation:7]
@@ -66,10 +67,11 @@ def gen_zp_task(name, params, out_dir="IN"):
         lines.append(f"M ({hex(G.x)} {hex(G.y)}) {k}")
 
     out_path = f"{out_dir}/{name}_task.txt"
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
-    print(f"✅ {out_path}: 10 задач")
+    print(f"OK {out_path}: 10 задач")
 
 if __name__ == "__main__":
+    configure_console()
     for name, params in CURVES_ZP.items():
         gen_zp_task(name, params)

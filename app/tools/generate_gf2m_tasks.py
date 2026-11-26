@@ -10,6 +10,7 @@ if _ROOT not in sys.path:
 from app.curves import CurveGF2m      # noqa: E402
 from app.fields import FieldGF2m      # noqa: E402
 from app.point import Point           # noqa: E402
+from app.utils import configure_console  # noqa: E402
 
 
 # Параметры Koblitz-кривых (Nss).
@@ -100,9 +101,10 @@ def gen_gf2m_task(name: str, params: dict, out_dir: str = "IN") -> None:
     out_path = os.path.join(out_dir, f"{name}_task.txt")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
-    print(f"✅ {out_path}: 10 задач")
+    print(f"OK {out_path}: 10 задач")
 
 
 if __name__ == "__main__":
+    configure_console()
     for name, params in CURVES_K.items():
         gen_gf2m_task(name, params)
